@@ -4,15 +4,16 @@ class Player extends Phaser.Sprite {
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-        this.body.bounce.set(0.5);
+//        this.body.bounce.set(0.5);
         this.anchor.setTo(0.5);
         this.verticalFix = 115;
         this.roll = 800;
         this.body.drag.set(6);
         this._initThruster();
         this.speed = 90;
-        this.body.maxVelocity.y = 75;
-        this.body.maxVelocity.x = 75;
+        this.body.maxVelocity.y = 110;
+        this.body.maxVelocity.x = 110;
+              this.body.gravity.y = 20;
     }
 
     _initThruster() {
@@ -43,6 +44,11 @@ class Player extends Phaser.Sprite {
             this.burn.visible = false;
             this.body.angularVelocity = 0;
             this.body.acceleration.set(0);
+        }
+        if(this.body.blocked.down){
+           this.body.maxVelocity.x = 40;
+        } else {
+            this.body.maxVelocity.x = 110;
         }
     }
 }

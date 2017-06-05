@@ -27,6 +27,7 @@ class Guns extends Phaser.Sprite {
         this.bullets.forEach(function (L) {
             L.body.allowGravity = false;
         })
+        
     }
 
 
@@ -61,6 +62,7 @@ class Guns extends Phaser.Sprite {
         this.fireEmitter.setScale(0.2, 1, 0.2, 1, 200);
 
         this.fireEmitter.start(false, 200, 10);
+        this.fireEmitter.on = false;
     }
 
     _blaster() {

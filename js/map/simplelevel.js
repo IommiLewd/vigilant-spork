@@ -52,5 +52,9 @@ class SimpleLevel extends Phaser.State {
 
         this._collisionHandler();
     }
+//    render() {
+//    this.game.debug.body(this.player);
+//
+//}
 
 }

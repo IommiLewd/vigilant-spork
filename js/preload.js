@@ -3,7 +3,8 @@ class Preload extends Phaser.State {
         //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 
         this.load.script('simpleLevel', 'js/map/simplelevel.js');
-        this.load.image('drone', 'img/drones/smallDrone.png');
+        this.load.image('drone', 'img/drones/constructionDroneDisc.png');
+        this.load.image('wheel', 'img/drones/constructionDroneWheel.png');
         this.load.image('thruster', 'img/drones/thruster.png');
         this.load.image('pointer', 'img/laserPointer.png');
         //this.load.image('thrusterBurn', 'img/drones/thrusterBurn.png');

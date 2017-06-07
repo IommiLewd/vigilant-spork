@@ -4,7 +4,7 @@ class Player extends Phaser.Sprite {
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
-//        this.body.bounce.set(0.5);
+        //        this.body.bounce.set(0.5);
         this.anchor.setTo(0.5);
         this.verticalFix = 115;
         this.roll = 800;
@@ -16,8 +16,8 @@ class Player extends Phaser.Sprite {
         this.speed = 90;
         this.body.maxVelocity.y = 110;
         this.body.maxVelocity.x = 110;
-              this.body.gravity.y = 20;
-        
+        this.body.gravity.y = 40;
+
     }
 
     _initThruster() {
@@ -33,7 +33,7 @@ class Player extends Phaser.Sprite {
         this._laser_pointer = this.game.add.tileSprite(0, -4, 800, 0.5, 'pointer');
     }
 
-    _loadWheel(){
+    _loadWheel() {
         this.wheel = this.game.add.sprite(0, 0, 'wheel');
         this.wheel.anchor.setTo(0.5);
         //this.addChild(this.wheel);
@@ -58,26 +58,62 @@ class Player extends Phaser.Sprite {
             this.body.angularVelocity = 0;
             this.body.acceleration.set(0);
         }
-        if(this.body.blocked.down){
-           this.body.maxVelocity.x = 60;
+        if (this.body.blocked.down) {
+            this.body.maxVelocity.x = 60;
         } else {
             this.body.maxVelocity.x = 110;
         }
-        
-        if(this.body.blocked.down && this.body.velocity.x < 0){
-            this.wheel.rotation += 1; 
-            
-        } else if(this.body.blocked.down && this.body.velocity.x > 0){
-            this.wheel.rotation -= 1;
-        }
 
+        //this.body.blocked.left || this.body.blocked.right && this.body.velocity.x > 0
+
+        if (this.body.blocked.down) {
+            if (this.body.velocity.x < 0) {
+                this.wheel.rotation += 1;
+            } else {
+                this.wheel.rotation -= 1;
+            }
+        }
+        
+           if (this.body.blocked.up) {
+            if (this.body.velocity.x < 0) {
+                this.wheel.rotation += 1;
+            } else {
+                this.wheel.rotation -= 1;
+            }
+        }
         
         
+
+        if (this.body.blocked.left) {
+            if (this.body.velocity.y < 0) {
+                this.wheel.rotation += 1;
+            } else {
+                this.wheel.rotation -= 1;
+            }
+        }
         
         
+        if(this.body.blocked.right){
+       if (this.body.velocity.y > 0) {
+                this.wheel.rotation += 1;
+            } else {
+                this.wheel.rotation -= 1;
+            }
+        }
         
-        
-        
+        console.log(this.body.velocity.x);
+
+        //else {
+        //            this.wheel.rotation = 0;
+        //        }
+
+
+
+
+
+
+
+
     }
 
 }

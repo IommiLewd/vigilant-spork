@@ -14,8 +14,8 @@ class Player extends Phaser.Sprite {
         this._initThruster();
         this.body.setSize(58, 58, -9, -9);
         this.speed = 90;
-        this.body.maxVelocity.y = 110;
-        this.body.maxVelocity.x = 110;
+        this.body.maxVelocity.y = 130;
+        this.body.maxVelocity.x = 130;
         this.body.gravity.y = 40;
 
     }
@@ -48,6 +48,11 @@ class Player extends Phaser.Sprite {
         this.arrow.y = this.y;
         this.wheel.x = this.x;
         this.wheel.y = this.y;
+        var range = this.body.velocity.x / 110;
+        if(range < 0 ){
+            range *= -1;
+        }
+        console.log(range);
         if (game.input.mousePointer.leftButton.isDown) {
             this.burn.visible = true;
             this.arrow.rotation = game.physics.arcade.angleToPointer(this.arrow);
@@ -64,18 +69,16 @@ class Player extends Phaser.Sprite {
             this.body.maxVelocity.x = 110;
         }
 
-        //this.body.blocked.left || this.body.blocked.right && this.body.velocity.x > 0
-
         if (this.body.blocked.down) {
             if (this.body.velocity.x < 0) {
                 this.wheel.rotation += 1;
             } else {
-                this.wheel.rotation -= 1;
+              this.wheel.rotation -= 1;
             }
         }
         
            if (this.body.blocked.up) {
-            if (this.body.velocity.x < 0) {
+            if (this.body.velocity.x > 0) {
                 this.wheel.rotation += 1;
             } else {
                 this.wheel.rotation -= 1;
@@ -99,10 +102,13 @@ class Player extends Phaser.Sprite {
             } else {
                 this.wheel.rotation -= 1;
             }
+         
         }
         
-        console.log(this.body.velocity.x);
-
+   if(this.body.velocity.x === 0 && this.body.velocity.y === 0){
+                this.wheel.rotation = 0;
+                
+            }
         //else {
         //            this.wheel.rotation = 0;
         //        }

@@ -6,7 +6,8 @@ class Preload extends Phaser.State {
         this.load.image('drone', 'img/drones/constructionDroneDisc.png');
         this.load.image('wheel', 'img/drones/constructionDroneWheel.png');
         this.load.image('thruster', 'img/drones/thruster.png');
-        this.load.image('pointer', 'img/laserPointer.png');
+
+        this.load.spritesheet('plasmaExplosion', 'img/plasmaExplosion.png', 32, 32, 4);
         //this.load.image('thrusterBurn', 'img/drones/thrusterBurn.png');
   
         this.load.image('smallBlaster', 'img/guns/smallBlaster.png');

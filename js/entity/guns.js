@@ -11,6 +11,7 @@ class Guns extends Phaser.Sprite {
         this.rateOfFire = 170;
         this.currentFire = 0;
         this.stagger = false;
+        this._initExplosions();
 
     }
 
@@ -27,9 +28,16 @@ class Guns extends Phaser.Sprite {
         this.bullets.forEach(function (L) {
             L.body.allowGravity = false;
         })
-        
-    }
 
+    }
+    _initExplosions() {
+        this.explosions = this.game.add.group();
+        this.explosions.enableBody = true;
+        this.explosions.setAll('checkWorldBounds', true);
+        this.explosions.createMultiple(540, 'plasmaExplosion');
+        this.explosions.setAll('anchor.x', 0.5);
+        this.explosions.setAll('anchor.y', 0.5);
+    }
 
     _killBullet(bullet) {
         this._bulletExplosion(bullet.x, bullet.y);
@@ -41,9 +49,25 @@ class Guns extends Phaser.Sprite {
         this.fireEmitter.x = x;
         this.fireEmitter.y = y;
         this.fireEmitter.on = true;
-        this.game.time.events.add(Phaser.Timer.SECOND * 0.2, function(){
-            
+        this.game.time.events.add(Phaser.Timer.SECOND * 0.2, function () {
+
             this.fireEmitter.on = false;
+        }, this);
+        console.log('more');
+        this.explosion;
+        this.explosion = this.explosions.getFirstDead();
+//        this.explosion.x = 100;
+//        this.explosion.y = 100;
+        this.explosion.reset(x, y);
+        this.explosion.scale.setTo(1.8);
+        this.explosion.animations.add('ass');
+        var rotation = Math.floor(Math.random() * 1) + 0  
+        this.explosion.rotation = rotation;
+        var anim = this.explosion.animations.play('ass');
+        
+        anim.onComplete.add(function(){
+           this.explosion =  this.explosions.getFirstAlive();
+            this.explosion.kill();
         }, this);
     }
 

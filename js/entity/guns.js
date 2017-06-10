@@ -16,7 +16,7 @@ class Guns extends Phaser.Sprite {
     }
 
     _initProjectiles() {
-        console.log('projectileattackInit');
+
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -45,7 +45,7 @@ class Guns extends Phaser.Sprite {
 
     }
     _bulletExplosion(x, y) {
-        console.log('ass');
+    
         this.fireEmitter.x = x;
         this.fireEmitter.y = y;
         this.fireEmitter.on = true;
@@ -53,13 +53,13 @@ class Guns extends Phaser.Sprite {
 
             this.fireEmitter.on = false;
         }, this);
-        console.log('more');
+   
         this.explosion;
         this.explosion = this.explosions.getFirstDead();
 //        this.explosion.x = 100;
 //        this.explosion.y = 100;
         this.explosion.reset(x, y);
-        this.explosion.scale.setTo(1.8);
+        this.explosion.scale.setTo(1.4);
         this.explosion.animations.add('ass');
         var rotation = Math.floor(Math.random() * 1) + 0  
         this.explosion.rotation = rotation;
@@ -74,7 +74,7 @@ class Guns extends Phaser.Sprite {
 
     _initExplosion() {
 
-        console.log('explosioninitfired');
+      
         this.fireEmitter = this.game.add.emitter(200, 200, 100);
         this.fireEmitter.makeParticles('particles', [0, 1, 2, 3]);
         this.fireEmitter.setRotation(0, 360);
@@ -101,7 +101,7 @@ class Guns extends Phaser.Sprite {
             this.stagger = true;
         }
 
-        this.bullet = this.game.physics.arcade.velocityFromAngle(this.angle, 900, this.bullet.body.velocity);
+        this.bullet = this.game.physics.arcade.velocityFromAngle(this.angle, 800, this.bullet.body.velocity);
         this.currentFire = this.game.time.now + this.rateOfFire;
 
     }

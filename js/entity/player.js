@@ -12,7 +12,7 @@ class Player extends Phaser.Sprite {
         this.bringToTop();
         this.body.drag.set(6);
         this._initThruster();
-        this.body.setSize(58, 58, -9, -9);
+        this.body.setSize(56, 56, -7, -7);
         this.speed = 130;
         this.body.maxVelocity.y = 120;
         this.body.maxVelocity.x = 120;
@@ -59,7 +59,7 @@ class Player extends Phaser.Sprite {
         if (this.body.blocked.down) {
             this.body.maxVelocity.x = 80;
         } else {
-            this.body.maxVelocity.x = 110;
+            this.body.maxVelocity.x = 130;
         }
         if (this.body.blocked.down) {
             if (this.body.velocity.x < 0) {

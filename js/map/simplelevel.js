@@ -24,7 +24,7 @@ class SimpleLevel extends Phaser.State {
 
     _initTestMap() {
         this._map = this.add.tilemap('level-1');
-        this._map.addTilesetImage('worldSprite', 'worldSprite');
+        this._map.addTilesetImage('Tilesettemp', 'Tilesettemp');
         this._collision_layer = this._map.createLayer('Tile Layer 1');
         this._collision_layer.resizeWorld();
         this._map.setCollisionBetween(0, 160, true, this._collision_layer);

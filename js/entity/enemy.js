@@ -1,5 +1,5 @@
 class BasicEnemy extends Phaser.Sprite {
-    constructor(game, x, y, key, velocity, tilemap, health) {
+    constructor(game, x, y, key, velocity, tilemap) {
         super(game, x, y, key, velocity, tilemap);
         if (velocity === undefined) {
             velocity = (60 + Math.random() * 20) * (Math.random() < 0.5 ? 1 : -1);
@@ -17,7 +17,11 @@ class BasicEnemy extends Phaser.Sprite {
         this._player_Spotted = true;
         var seededTimer = Math.random() * (8 - 1) + 1;
         this.game.time.events.add(Phaser.Timer.SECOND * seededTimer, this._engage_Velocity, this);
-   
+        this.heightCheck;
+        this.horizontalCheck;
+        this._playerPositionX;
+        this._playerPositionY;
+
         //this.body.allowGravity = false;
     }
     _engage_Velocity() {
@@ -44,20 +48,20 @@ class BasicEnemy extends Phaser.Sprite {
             this.heightCheck = this._playerPositionY;
             this.horizontalCheck = this._playerPositionX;
         }
-            var direction;
-            if (this.body.velocity.x > 0) {
-                this.scale.setTo(-1, 1);
-                direction = 1;
-            } else {
-                this.scale.setTo(1, 1);
-                direction = -1;
-            }
-            var nextX = this.x + direction * (Math.abs(this.width) / 2 + 1);
-            var nextY = this.bottom + 1;
-            var nextTile = this._map.getTileWorldXY(nextX, nextY, 64, 64, 'CollisionLayer');
-            if (!nextTile && this.body.blocked.down && this.y > this.heightCheck - 6) {
-                this.body.velocity.x *= -1;
-            
+        var direction;
+        if (this.body.velocity.x > 0) {
+            this.scale.setTo(-1, 1);
+            direction = 1;
+        } else {
+            this.scale.setTo(1, 1);
+            direction = -1;
+        }
+        var nextX = this.x + direction * (Math.abs(this.width) / 2 + 1);
+        var nextY = this.bottom + 1;
+        var nextTile = this._map.getTileWorldXY(nextX, nextY, 64, 64, 'CollisionLayer');
+        if (!nextTile && this.body.blocked.down && this.y > this.heightCheck - 6) {
+            this.body.velocity.x *= -1;
+
         }
     }
 }

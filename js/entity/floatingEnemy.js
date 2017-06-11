@@ -30,11 +30,13 @@ class floatingEnemy extends Phaser.Sprite {
         this.initialY = this.y;
         this.heightCheck;
         this.horizontalCheck;
+        console.log(this.initialX + '   ' + this.initialY);
     }
 
 
     _movementUpdate() {
-        if (this._playerPositionX - this.initialX > -150 && this._playerPositionX - this.initialX < 150 && this._playerPositionY - this.initialY > -150 && this._playerPositionY - this.initialY < 150) {
+        
+        if (this._playerPositionX - this.initialX > -180 && this._playerPositionX - this.initialX < 180 && this._playerPositionY - this.initialY > -180 && this._playerPositionY - this.initialY < 180) {
             console.log('Hostile Spotted!');
             if (this.body.x < this.horizontalCheck) {
                 this.body.velocity.x = +80;

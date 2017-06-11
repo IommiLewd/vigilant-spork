@@ -26,20 +26,18 @@ class SimpleLevel extends Phaser.State {
         this._map = this.add.tilemap('level-1');
         this._map.addTilesetImage('worldSprite', 'worldSprite');
         this._collision_layer = this._map.createLayer('Tile Layer 1');
-        console.log(this._map);
         this._collision_layer.resizeWorld();
         this._map.setCollisionBetween(0, 160, true, this._collision_layer);
     }
-    _enemySpawner(){
+    _enemySpawner() {
         this.enemies = this.game.add.group();
-        var testArray = this._findObjectsByType('floaterSpawn', this._map, 'Object Layer 1');
-        console.log(testArray);
-        for(var i = 0; i < testArray.length; i++){
-            this.enemy = new floatingEnemy(this, testArray[0].x, testArray[0].y, 'enemy', 100, this._map);
+        var floaterArray = this._findObjectsByType('floaterSpawn', this._map, 'Object Layer 1');
+        for (var i = 0; i < floaterArray.length; i++) {
+            this.enemy = new floatingEnemy(this, floaterArray[i].x, floaterArray[i].y, 'enemy', 100, this._map);
             this.enemies.add(this.enemy);
         }
     }
-    
+
     _findObjectsByType(targetType, tilemap, layer) {
         var result = [];
         tilemap.objects[layer].forEach(function (element) {
@@ -50,10 +48,7 @@ class SimpleLevel extends Phaser.State {
         return result;
     }
 
-    _initEnemies() {
-        this.enemy = new floatingEnemy(this, 200, 100, 'enemy', 100, this._map);
 
-    }
 
     _collisionHandler() {
         this.game.physics.arcade.collide(this._collision_layer, this.player);
@@ -70,23 +65,19 @@ class SimpleLevel extends Phaser.State {
         this._initTestMap();
         this._loadDrone();
         this._loadGuns();
-        //this._initEnemies();
         this._enemySpawner();
-        
+
     }
 
     update() {
-            this.weapons.x = this.player.x;
-            this.weapons.y = this.player.y;
+        this.weapons.x = this.player.x;
+        this.weapons.y = this.player.y;
+        this.enemies.forEach(function (enemy) {
+            enemy._playerPositionX = this.player.x;
+            enemy._playerPositionY = this.player.y;
+        }, this);
+        this._collisionHandler();
 
-            this._collisionHandler();
-            this.enemy._playerPositionX = this.player.x;
-            this.enemy._playerPositionY = this.player.y;
-
-        }
-        //    render() {
-        //    this.game.debug.body(this.player);
-        //
-        //}
+    }
 
 }
